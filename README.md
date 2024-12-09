@@ -1,115 +1,36 @@
-# ESLintRC Library
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-This repository contains the legacy ESLintRC configuration file format for ESLint. This package is not intended for use outside of the ESLint ecosystem. It is ESLint-specific and not intended for use in other programs.
+## Getting Started
 
-**Note:** This package is frozen except for critical bug fixes as ESLint moves to a new config system.
+First, run the development server:
 
-## Installation
-
-You can install the package as follows:
-
-```
-npm install @eslint/eslintrc --save-dev
-
+```bash
+npm run dev
 # or
-
-yarn add @eslint/eslintrc -D
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Usage (ESM)
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The primary class in this package is `FlatCompat`, which is a utility to translate ESLintRC-style configs into flat configs. Here's how you use it inside of your `eslint.config.js` file:
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```js
-import { FlatCompat } from "@eslint/eslintrc";
-import js from "@eslint/js";
-import path from "path";
-import { fileURLToPath } from "url";
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-// mimic CommonJS variables -- not needed if using CommonJS
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+## Learn More
 
-const compat = new FlatCompat({
-    baseDirectory: __dirname,                  // optional; default: process.cwd()
-    resolvePluginsRelativeTo: __dirname,       // optional
-    recommendedConfig: js.configs.recommended, // optional
-    allConfig: js.configs.all,                 // optional
-});
+To learn more about Next.js, take a look at the following resources:
 
-export default [
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-    // mimic ESLintRC-style extends
-    ...compat.extends("standard", "example"),
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-    // mimic environments
-    ...compat.env({
-        es2020: true,
-        node: true
-    }),
+## Deploy on Vercel
 
-    // mimic plugins
-    ...compat.plugins("airbnb", "react"),
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-    // translate an entire config
-    ...compat.config({
-        plugins: ["airbnb", "react"],
-        extends: "standard",
-        env: {
-            es2020: true,
-            node: true
-        },
-        rules: {
-            semi: "error"
-        }
-    })
-];
-```
-
-## Usage (CommonJS)
-
-Using `FlatCompat` in CommonJS files is similar to ESM, but you'll use `require()` and `module.exports` instead of `import` and `export`. Here's how you use it inside of your `eslint.config.js` CommonJS file:
-
-```js
-const { FlatCompat } = require("@eslint/eslintrc");
-const js = require("@eslint/js");
-
-const compat = new FlatCompat({
-    baseDirectory: __dirname,                  // optional; default: process.cwd()
-    resolvePluginsRelativeTo: __dirname,       // optional
-    recommendedConfig: js.configs.recommended, // optional
-    allConfig: js.configs.all,                 // optional
-});
-
-module.exports = [
-
-    // mimic ESLintRC-style extends
-    ...compat.extends("standard", "example"),
-
-    // mimic environments
-    ...compat.env({
-        es2020: true,
-        node: true
-    }),
-
-    // mimic plugins
-    ...compat.plugins("airbnb", "react"),
-
-    // translate an entire config
-    ...compat.config({
-        plugins: ["airbnb", "react"],
-        extends: "standard",
-        env: {
-            es2020: true,
-            node: true
-        },
-        rules: {
-            semi: "error"
-        }
-    })
-];
-```
-
-## License
-
-MIT License
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
